@@ -121,7 +121,7 @@ HTML = '''<!DOCTYPE html>
   </div>
   <div>
     <h1>Interpolation Search</h1>
-    <p>Implementation &amp; Performance Analysis — CS5303 DAA Lab</p>
+    <p>Implementation &amp; Performance Analysis — AD5303 DAA Lab</p>
   </div>
 </header>
 <main>

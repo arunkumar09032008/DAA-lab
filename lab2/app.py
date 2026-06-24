@@ -144,7 +144,7 @@ HTML = '''<!DOCTYPE html>
   <div><div class="badge">EX. 02</div></div>
   <div>
     <h1>String Matching Algorithms</h1>
-    <p>Naive · Rabin-Karp · KMP — CS5303 DAA Lab</p>
+    <p>Naive · Rabin-Karp · KMP — AD5303 DAA Lab</p>
   </div>
 </header>
 <main>
