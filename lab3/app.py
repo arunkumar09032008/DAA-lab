@@ -340,8 +340,8 @@ function drawGraph(n, edges, data) {
 function renderResults(data) {
   let html = '<div class="algo-grid">';
 
-  // Kruskal card
-  html += '<div class="algo-card kruskal"><h3>Kruskal\'s Algorithm</h3>';
+  // Kruskal card - using template literal to avoid escaping issues
+  html += `<div class="algo-card kruskal"><h3>Kruskal's Algorithm</h3>`;
   html += '<div class="stat-row"><span>Total Cost</span><span class="cost-badge" style="background:var(--accent)">' + data.kruskal.cost + '</span></div>';
   html += '<div class="stat-row"><span>Edges in MST</span><span>' + data.kruskal.mst.length + '</span></div>';
   html += '<table class="edge-table"><thead><tr><th>Edge</th><th>Weight</th></tr></thead><tbody>';
@@ -352,8 +352,8 @@ function renderResults(data) {
   });
   html += '</tbody></table></div>';
 
-  // Prim card
-  html += '<div class="algo-card prim"><h3>Prim\'s Algorithm</h3>';
+  // Prim card - using template literal to avoid escaping issues
+  html += `<div class="algo-card prim"><h3>Prim's Algorithm</h3>`;
   html += '<div class="stat-row"><span>Total Cost</span><span class="cost-badge" style="background:var(--orange)">' + data.prim.cost + '</span></div>';
   html += '<div class="stat-row"><span>Edges in MST</span><span>' + data.prim.mst.length + '</span></div>';
   html += '<table class="edge-table"><thead><tr><th>Edge</th><th>Weight</th></tr></thead><tbody>';
@@ -368,7 +368,7 @@ function renderResults(data) {
   const same = data.kruskal.cost === data.prim.cost;
   html += '<div style="margin-top:1rem;text-align:center;font-family:JetBrains Mono,monospace;font-size:0.85rem;color:var(--muted)">';
   html += same
-    ? 'Both algorithms produce an MST with the same total cost: <span class="cost-badge" style="margin-left:6px">' + data.kruskal.cost + '</span>'
+    ? `Both algorithms produce an MST with the same total cost: <span class="cost-badge" style="margin-left:6px">${data.kruskal.cost}</span>`
     : 'Costs differ (should not happen for connected graphs). Kruskal: ' + data.kruskal.cost + ', Prim: ' + data.prim.cost;
   html += '</div>';
 
