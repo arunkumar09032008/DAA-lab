@@ -5,3 +5,30 @@ services:
     plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
+  - type: web
+    name: lab1-interpolation-search
+    runtime: python
+    rootDir: lab1
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+  - type: web
+    name: lab2-string-matching
+    runtime: python
+    rootDir: lab2
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+  - type: web
+    name: lab3-mst
+    runtime: python
+    rootDir: lab3
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
