@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrix Chain Multiplication Solver</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #1e293b;
+    --accent: #38bdf8;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --good: #4ade80;
+    --error: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 2rem 1rem;
+  }
+  .card {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--panel);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  h1 { font-size: 1.4rem; margin-top: 0; }
+  p.sub { color: var(--muted); margin-top: -0.5rem; }
+  label { display: block; margin-top: 1rem; font-size: 0.9rem; color: var(--muted); }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    margin-top: 0.3rem;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  button {
+    margin-top: 1.2rem;
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #0f172a;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  button:hover { opacity: 0.9; }
+  .result { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #334155; }
+  .result table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .result td, .result th { padding: 0.4rem 0.6rem; text-align: left; font-size: 0.9rem; }
+  .result th { color: var(--muted); }
+  .highlight { color: var(--good); font-weight: 600; }
+  .err { color: var(--error); margin-top: 1rem; }
+  code { background: #0f172a; padding: 0.1rem 0.4rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Matrix Chain Multiplication Solver</h1>
+    <p class="sub">Enter matrix dimensions as a comma-separated list, e.g. <code>10, 30, 5, 60, 10</code> for 4 matrices.</p>
+
+    <label for="dims">Dimensions</label>
+    <input type="text" id="dims" value="10, 30, 5, 60, 10">
+    <button onclick="solveChain()">Compute</button>
+
+    <div id="output"></div>
+  </div>
+
+<script>
+async function solveChain() {
+  const raw = document.getElementById('dims').value;
+  const dims = raw.split(',').map(s => s.trim()).filter(Boolean).map(Number);
+  const output = document.getElementById('output');
+  output.innerHTML = '<p class="sub">Computing…</p>';
+
+  try {
+    const res = await fetch('/api/solve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dims })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      output.innerHTML = `<p class="err">${data.error}</p>`;
+      return;
+    }
+
+    let rows = data.matrices.map(m => `<tr><td>${m.name}</td><td>${m.rows} x ${m.cols}</td></tr>`).join('');
+
+    output.innerHTML = `
+      <div class="result">
+        <table>
+          <tr><th>Matrix</th><th>Shape</th></tr>
+          ${rows}
+        </table>
+        <p>Minimum scalar multiplications: <span class="highlight">${data.min_multiplications}</span></p>
+        <p>Optimal parenthesization: <span class="highlight">${data.optimal_parenthesization}</span></p>
+      </div>
+    `;
+  } catch (e) {
+    output.innerHTML = `<p class="err">Something went wrong: ${e.message}</p>`;
+  }
+}
+
+window.onload = solveChain;
+</script>
+</body>
+</html>
