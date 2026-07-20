@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>N-Queens Solver (Backtracking)</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 16px; color: #222; }
+  h1 { font-size: 1.6rem; }
+  form { margin-bottom: 24px; }
+  input[type=number] { width: 80px; padding: 6px; font-size: 1rem; }
+  button { padding: 6px 14px; font-size: 1rem; cursor: pointer; }
+  .stats { background: #f4f4f4; padding: 12px 16px; border-radius: 6px; margin-bottom: 24px; }
+  .error { color: #b00020; font-weight: bold; }
+  .board { display: inline-grid; border: 2px solid #333; margin: 8px 16px 24px 0; }
+  .row { display: flex; }
+  .cell { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+          border: 1px solid #999; font-weight: bold; }
+  .light { background: #eee; }
+  .dark { background: #ccc; }
+  .queen { color: #b00020; font-size: 1.3rem; }
+  .boards { display: flex; flex-wrap: wrap; }
+  .solution-label { font-size: 0.85rem; color: #555; text-align: center; }
+</style>
+</head>
+<body>
+  <h1>N-Queens Problem &mdash; Backtracking</h1>
+
+  <form method="get" action="/">
+    <label for="n">Board size (N):</label>
+    <input type="number" id="n" name="n" min="1" max="{{ max_n }}" value="{{ n }}">
+    <button type="submit">Solve</button>
+    <span style="color:#666; font-size:0.85rem;"> (max {{ max_n }} for this demo)</span>
+  </form>
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% else %}
+    <div class="stats">
+      <strong>N = {{ n }}</strong><br>
+      Solutions found: {{ solution_count }}<br>
+      Backtrack/attempt count: {{ backtracks }}<br>
+      Time taken: {{ "%.4f"|format(elapsed) }} seconds
+    </div>
+
+    <div class="boards">
+      {% for sol in solutions %}
+        <div>
+          <div class="board">
+            {% for row in range(n) %}
+              <div class="row">
+                {% for col in range(n) %}
+                  <div class="cell {{ 'light' if (row+col) % 2 == 0 else 'dark' }}">
+                    {% if sol[row] == col %}<span class="queen">&#9813;</span>{% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+          <div class="solution-label">Solution {{ loop.index }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</body>
+</html>

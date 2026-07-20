@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Min/Max Divide &amp; Conquer</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 780px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+  h1 { font-size: 1.5rem; }
+  code { background: #f2f2f2; padding: 2px 6px; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+  th, td { text-align: right; padding: 8px 12px; border-bottom: 1px solid #ddd; }
+  th:first-child, td:first-child { text-align: left; }
+  th { background: #fafafa; }
+  .card { background: #f8f9fb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+</style>
+</head>
+<body>
+  <h1>Divide &amp; Conquer Min/Max Finder</h1>
+  <p>Comparing a divide-and-conquer min/max search against a naive linear scan.</p>
+
+  <div class="card">
+    <p><strong>Array:</strong> <code>{{ demo.array }}</code></p>
+    <p><strong>Min:</strong> {{ demo.min }} &nbsp; <strong>Max:</strong> {{ demo.max }}</p>
+    <p><strong>D&amp;C Comparisons:</strong> {{ demo.dc_comparisons }} &nbsp;
+       <strong>Naive Comparisons:</strong> {{ demo.naive_comparisons }}</p>
+  </div>
+
+  <h2>Performance vs. Array Size</h2>
+  <table>
+    <tr>
+      <th>Size</th>
+      <th>D&amp;C Comps</th>
+      <th>Naive Comps</th>
+      <th>Formula 3n/2 &minus; 2</th>
+    </tr>
+    {% for row in performance %}
+    <tr>
+      <td>{{ row.size }}</td>
+      <td>{{ row.dc_comparisons }}</td>
+      <td>{{ row.naive_comparisons }}</td>
+      <td>{{ row.formula_3n_2_minus_2 }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <p style="margin-top: 24px; color: #666; font-size: 0.9rem;">
+    Refresh the page to re-run with new random arrays.
+  </p>
+</body>
+</html>
